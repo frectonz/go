@@ -47,6 +47,7 @@ const (
 	_Continue    // continue
 	_Default     // default
 	_Defer       // defer
+	_Shelve      // shelve
 	_Else        // else
 	_Fallthrough // fallthrough
 	_For         // for

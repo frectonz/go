@@ -314,6 +314,7 @@ const stopset uint64 = 1<<_Break |
 	1<<_Const |
 	1<<_Continue |
 	1<<_Defer |
+	1<<_Shelve |
 	1<<_Fallthrough |
 	1<<_For |
 	1<<_Go |
@@ -963,7 +964,13 @@ func (p *parser) callStmt() *CallStmt {
 
 	s := new(CallStmt)
 	s.pos = p.pos()
-	s.Tok = p.tok // _Defer or _Go
+
+	if p.tok == _Shelve {
+		s.Tok = _Defer
+	} else {
+		s.Tok = p.tok // _Defer or _Go
+	}
+
 	p.next()
 
 	x := p.pexpr(nil, p.tok == _Lparen) // keep_parens so we can report error below
@@ -2611,7 +2618,7 @@ func (p *parser) stmtOrNil() Stmt {
 		}
 		return s
 
-	case _Go, _Defer:
+	case _Go, _Defer, _Shelve:
 		return p.callStmt()
 
 	case _Goto:
