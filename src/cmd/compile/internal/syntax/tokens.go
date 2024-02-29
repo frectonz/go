@@ -67,6 +67,7 @@ const (
 	_Switch      // switch
 	_Type        // type
 	_Let         // let
+	_Iz          // iz
 	_Var         // var
 
 	// empty line comment to exclude it from .String

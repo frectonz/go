@@ -210,7 +210,7 @@ func (p *parser) want(tok token) {
 // (and reports an error) for better parser error recovery.
 func (p *parser) gotAssign() bool {
 	switch p.tok {
-	case _Define:
+	case _Define, _Iz:
 		p.syntaxError("expected =")
 		fallthrough
 	case _Assign:
@@ -2096,7 +2096,7 @@ func (p *parser) simpleStmt(lhs Expr, keyword token) SimpleStmt {
 		lhs = p.exprList()
 	}
 
-	if _, ok := lhs.(*ListExpr); !ok && p.tok != _Assign && p.tok != _Define {
+	if _, ok := lhs.(*ListExpr); !ok && p.tok != _Assign && p.tok != _Define && p.tok != _Iz {
 		// expr
 		pos := p.pos()
 		switch p.tok {
@@ -2132,10 +2132,10 @@ func (p *parser) simpleStmt(lhs Expr, keyword token) SimpleStmt {
 
 	// expr_list
 	switch p.tok {
-	case _Assign, _Define:
+	case _Assign, _Define, _Iz:
 		pos := p.pos()
 		var op Operator
-		if p.tok == _Define {
+		if p.tok == _Define || p.tok == _Iz {
 			op = Def
 		}
 		p.next()
