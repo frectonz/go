@@ -323,7 +323,8 @@ const stopset uint64 = 1<<_Break |
 	1<<_Select |
 	1<<_Switch |
 	1<<_Type |
-	1<<_Var
+	1<<_Var |
+	1<<_Let
 
 // advance consumes tokens until it finds a token of the stopset or followlist.
 // The stopset is only considered if we are inside a function (p.fnest > 0).
@@ -436,7 +437,7 @@ func (p *parser) fileOrNil() *File {
 			p.next()
 			f.DeclList = p.appendGroup(f.DeclList, p.typeDecl)
 
-		case _Var:
+		case _Var, _Let:
 			p.next()
 			f.DeclList = p.appendGroup(f.DeclList, p.varDecl)
 
@@ -453,7 +454,7 @@ func (p *parser) fileOrNil() *File {
 			} else {
 				p.syntaxError("non-declaration statement outside function body")
 			}
-			p.advance(_Import, _Const, _Type, _Var, _Func)
+			p.advance(_Import, _Const, _Type, _Var, _Let, _Func)
 			continue
 		}
 
@@ -463,7 +464,7 @@ func (p *parser) fileOrNil() *File {
 
 		if p.tok != _EOF && !p.got(_Semi) {
 			p.syntaxError("after top level declaration")
-			p.advance(_Import, _Const, _Type, _Var, _Func)
+			p.advance(_Import, _Const, _Type, _Var, _Let, _Func)
 		}
 	}
 	// p.tok == _EOF
@@ -2295,7 +2296,7 @@ func (p *parser) header(keyword token) (init SimpleStmt, cond Expr, post SimpleS
 
 	if p.tok != _Semi {
 		// accept potential varDecl but complain
-		if p.got(_Var) {
+		if p.got(_Var) || p.got(_Let) {
 			p.syntaxError(fmt.Sprintf("var declaration not allowed in %s initializer", tokstring(keyword)))
 		}
 		init = p.simpleStmt(nil, keyword)
@@ -2553,7 +2554,7 @@ func (p *parser) stmtOrNil() Stmt {
 	}
 
 	switch p.tok {
-	case _Var:
+	case _Var, _Let:
 		return p.declStmt(p.varDecl)
 
 	case _Const:
