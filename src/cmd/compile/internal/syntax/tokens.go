@@ -60,6 +60,7 @@ const (
 	_Package     // package
 	_Range       // range
 	_Return      // return
+	_Bababooey   // bababooey
 	_Select      // select
 	_Struct      // struct
 	_Switch      // switch

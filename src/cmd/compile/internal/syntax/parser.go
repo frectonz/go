@@ -320,6 +320,7 @@ const stopset uint64 = 1<<_Break |
 	1<<_Goto |
 	1<<_If |
 	1<<_Return |
+	1<<_Bababooey |
 	1<<_Select |
 	1<<_Switch |
 	1<<_Type |
@@ -2621,7 +2622,7 @@ func (p *parser) stmtOrNil() Stmt {
 		s.Label = p.name()
 		return s
 
-	case _Return:
+	case _Return, _Bababooey:
 		s := new(ReturnStmt)
 		s.pos = p.pos()
 		p.next()
