@@ -51,6 +51,7 @@ const (
 	_Fallthrough // fallthrough
 	_For         // for
 	_Func        // func
+	_Funcky      // funcky
 	_Go          // go
 	_Goto        // goto
 	_If          // if
