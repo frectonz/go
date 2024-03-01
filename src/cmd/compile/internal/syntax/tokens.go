@@ -57,6 +57,7 @@ const (
 	_Go          // go
 	_Goto        // goto
 	_If          // if
+	_Kehone      // ከሆነ
 	_Import      // import
 	_Interface   // interface
 	_Map         // map

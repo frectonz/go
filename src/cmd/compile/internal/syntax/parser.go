@@ -320,6 +320,7 @@ const stopset uint64 = 1<<_Break |
 	1<<_Go |
 	1<<_Goto |
 	1<<_If |
+	1<<_Kehone |
 	1<<_Return |
 	1<<_Bababooey |
 	1<<_Select |
@@ -2414,7 +2415,8 @@ func (p *parser) ifStmt() *IfStmt {
 
 	if p.got(_Else) {
 		switch p.tok {
-		case _If:
+		case _If, _Kehone:
+      p.tok = _If
 			s.Else = p.ifStmt()
 		case _Lbrace:
 			s.Else = p.blockStmt("")
@@ -2598,7 +2600,8 @@ func (p *parser) stmtOrNil() Stmt {
 	case _Select:
 		return p.selectStmt()
 
-	case _If:
+	case _If, _Kehone:
+    p.tok = _If
 		return p.ifStmt()
 
 	case _Fallthrough:

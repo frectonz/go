@@ -46,26 +46,27 @@ func _() {
 	_ = x[_Go-36]
 	_ = x[_Goto-37]
 	_ = x[_If-38]
-	_ = x[_Import-39]
-	_ = x[_Interface-40]
-	_ = x[_Map-41]
-	_ = x[_Package-42]
-	_ = x[_Range-43]
-	_ = x[_Return-44]
-	_ = x[_Bababooey-45]
-	_ = x[_Select-46]
-	_ = x[_Struct-47]
-	_ = x[_Switch-48]
-	_ = x[_Type-49]
-	_ = x[_Let-50]
-	_ = x[_Iz-51]
-	_ = x[_Var-52]
-	_ = x[tokenCount-53]
+	_ = x[_Kehone-39]
+	_ = x[_Import-40]
+	_ = x[_Interface-41]
+	_ = x[_Map-42]
+	_ = x[_Package-43]
+	_ = x[_Range-44]
+	_ = x[_Return-45]
+	_ = x[_Bababooey-46]
+	_ = x[_Select-47]
+	_ = x[_Struct-48]
+	_ = x[_Switch-49]
+	_ = x[_Type-50]
+	_ = x[_Let-51]
+	_ = x[_Iz-52]
+	_ = x[_Var-53]
+	_ = x[tokenCount-54]
 }
 
-const _token_name = "EOFnameliteralopop=opop=:=<-*([{)]},;:::....breakcasechanconstcontinuedefaultdefershelveelsefallthroughforfuncfunckygogotoifimportinterfacemappackagerangereturnbababooeyselectstructswitchtypeletizvar"
+const _token_name = "EOFnameliteralopop=opop=:=<-*([{)]},;:::....breakcasechanconstcontinuedefaultdefershelveelsefallthroughforfuncfunckygogotoifከሆነimportinterfacemappackagerangereturnbababooeyselectstructswitchtypeletizvar"
 
-var _token_index = [...]uint8{0, 3, 7, 14, 16, 19, 23, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 44, 49, 53, 57, 62, 70, 77, 82, 88, 92, 103, 106, 110, 116, 118, 122, 124, 130, 139, 142, 149, 154, 160, 169, 175, 181, 187, 191, 194, 196, 199, 199}
+var _token_index = [...]uint8{0, 3, 7, 14, 16, 19, 23, 24, 26, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 44, 49, 53, 57, 62, 70, 77, 82, 88, 92, 103, 106, 110, 116, 118, 122, 124, 133, 139, 148, 151, 158, 163, 169, 178, 184, 190, 196, 200, 203, 205, 208, 208}
 
 func (i token) String() string {
 	i -= 1
