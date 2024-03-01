@@ -176,6 +176,11 @@ redo:
 			s.tok = _Define
 			break
 		}
+		if s.ch == ':' {
+			s.nextch()
+			s.tok = _TwoColons
+			break
+		}
 		s.tok = _Colon
 
 	case '.':

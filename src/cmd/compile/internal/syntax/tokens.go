@@ -36,6 +36,7 @@ const (
 	_Comma     // ,
 	_Semi      // ;
 	_Colon     // :
+	_TwoColons // ::
 	_Dot       // .
 	_DotDotDot // ...
 

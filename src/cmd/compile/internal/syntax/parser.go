@@ -553,7 +553,7 @@ func (p *parser) importDecl(group *Group) Decl {
 	switch p.tok {
 	case _Name:
 		d.LocalPkgName = p.name()
-	case _Dot:
+	case _Dot, _TwoColons:
 		d.LocalPkgName = NewName(p.pos(), ".")
 		p.next()
 	}
@@ -1095,7 +1095,7 @@ loop:
 	for {
 		pos := p.pos()
 		switch p.tok {
-		case _Dot:
+		case _Dot, _TwoColons:
 			p.next()
 			switch p.tok {
 			case _Name:
@@ -1606,7 +1606,7 @@ func (p *parser) fieldDecl(styp *StructType) {
 	switch p.tok {
 	case _Name:
 		name := p.name()
-		if p.tok == _Dot || p.tok == _Literal || p.tok == _Semi || p.tok == _Rbrace {
+		if p.tok == _Dot || p.tok == _TwoColons || p.tok == _Literal || p.tok == _Semi || p.tok == _Rbrace {
 			// embedded type
 			typ := p.qualifiedName(name)
 			tag := p.oliteral()
@@ -1915,7 +1915,7 @@ func (p *parser) paramDeclOrNil(name *Name, follow token) *Field {
 			return f
 		}
 
-		if p.tok == _Dot {
+		if p.tok == _Dot || p.tok == _TwoColons {
 			// name "." ...
 			f.Type = p.qualifiedName(name)
 			if typeSetsOk && p.tok == _Operator && p.op == Or {
@@ -2743,10 +2743,10 @@ func (p *parser) qualifiedName(name *Name) Expr {
 	default:
 		x = NewName(p.pos(), "_")
 		p.syntaxError("expected name")
-		p.advance(_Dot, _Semi, _Rbrace)
+		p.advance(_Dot, _TwoColons, _Semi, _Rbrace)
 	}
 
-	if p.tok == _Dot {
+	if p.tok == _Dot || p.tok == _TwoColons {
 		s := new(SelectorExpr)
 		s.pos = p.pos()
 		p.next()
