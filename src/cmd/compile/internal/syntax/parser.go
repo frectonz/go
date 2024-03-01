@@ -444,7 +444,7 @@ func (p *parser) fileOrNil() *File {
 			p.next()
 			f.DeclList = p.appendGroup(f.DeclList, p.varDecl)
 
-		case _Func, _Funcky:
+		case _Func, _Funcky, _Geletse:
 			p.next()
 			if d := p.funcDeclOrNil(); d != nil {
 				f.DeclList = append(f.DeclList, d)
@@ -457,7 +457,7 @@ func (p *parser) fileOrNil() *File {
 			} else {
 				p.syntaxError("non-declaration statement outside function body")
 			}
-			p.advance(_Import, _Const, _Type, _Var, _Let, _Funcky)
+			p.advance(_Import, _Const, _Type, _Var, _Let, _Funcky, _Geletse)
 			continue
 		}
 
@@ -467,7 +467,7 @@ func (p *parser) fileOrNil() *File {
 
 		if p.tok != _EOF && !p.got(_Semi) {
 			p.syntaxError("after top level declaration")
-			p.advance(_Import, _Const, _Type, _Var, _Let, _Func, _Funcky)
+			p.advance(_Import, _Const, _Type, _Var, _Let, _Func, _Funcky, _Geletse)
 		}
 	}
 	// p.tok == _EOF
@@ -1032,7 +1032,7 @@ func (p *parser) operand(keep_parens bool) Expr {
 		}
 		return x
 
-	case _Func, _Funcky:
+	case _Func, _Funcky, _Geletse:
 		pos := p.pos()
 		p.next()
 		_, ftyp := p.funcType("function type")
@@ -1353,7 +1353,7 @@ func (p *parser) typeOrNil() Expr {
 		t.Elem = p.chanElem()
 		return t
 
-	case _Func, _Funcky:
+	case _Func, _Funcky, _Geletse:
 		// fntype
 		p.next()
 		_, t := p.funcType("function type")
@@ -2586,7 +2586,7 @@ func (p *parser) stmtOrNil() Stmt {
 			return p.simpleStmt(nil, 0) // unary operators
 		}
 
-	case _Literal, _Func, _Funcky, _Lparen, // operands
+	case _Literal, _Func, _Funcky, _Geletse, _Lparen, // operands
 		_Lbrack, _Struct, _Map, _Chan, _Interface, // composite types
 		_Arrow: // receive operator
 		return p.simpleStmt(nil, 0)

@@ -53,6 +53,7 @@ const (
 	_Fallthrough // fallthrough
 	_For         // for
 	_Func        // func
+	_Geletse     // ግለፅ
 	_Funcky      // funcky
 	_Go          // go
 	_Goto        // goto
